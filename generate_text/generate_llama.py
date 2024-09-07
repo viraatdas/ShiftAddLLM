@@ -5,7 +5,7 @@ sys.path.append('..')
 
 import torch
 import time
-from transformers import LlamaTokenizer, LlamaForCausalLM
+from transformers import AutoTokenizer, LlamaForCausalLM
 from modelutils import *
 
 def generate_text_args():
@@ -102,7 +102,7 @@ if __name__ == '__main__':
     torch.manual_seed(42)
 
     # Load the tokenizer
-    tokenizer = LlamaTokenizer.from_pretrained(args.model)
+    tokenizer = AutoTokenizer.from_pretrained(args.model)
     prompts = [
         "Once upon a time",
         "In a galaxy far, far away",
