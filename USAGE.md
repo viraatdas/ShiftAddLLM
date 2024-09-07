@@ -1,7 +1,7 @@
 ## Usage
 1. Quantize model
 ```
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 model/llama.py meta-llama/Llama-2-13b-hf --wbits 3 --groupsize 128 --acc --bcq --bcq_round 50 --load BCQ_ACC_13b_HF # bcq_round 20 works too, bigger - slower - maybe better
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 model/llama.py meta-llama/Llama-2-13b-hf --wbits 3 --groupsize 128 --acc --bcq --bcq_round 50 --load BCQ_ACC_Llama-2-13b-hf # bcq_round 20 works too, bigger - slower - maybe better
 ```
 
 2. Generate
@@ -13,7 +13,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 generate_text/generate_llama.py --m
 
 ## Results
 
-1.
+1. BCQ_ACC_Llama-2-13b-hf 
 
 ```
 ubuntu@150-136-43-160:~/llm-train-filesystem/ShiftAddLLM$ time CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 generate_text/generate_llama.py --model meta-llama/Llama-2-13b-hf --load BCQ_ACC_13b_HF --benchmark True
@@ -172,3 +172,8 @@ user    2m11.265s
 sys     1m17.537s
 
 ```
+
+
+
+2. BCQ_ACC_Llama-3.1-8B-Instruct
+
