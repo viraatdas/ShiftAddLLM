@@ -20,18 +20,22 @@ def generate_text_args():
     
     # Generation parameters
     parser.add_argument('--max_length', type=int, default=300, help="Maximum length of generated text")
+    parser.add_argument('--top_k', type=int, default=0, help="Top-k sampling (default: 0)")
+    parser.add_argument('--top_p', type=float, default=0.9, help="Top-p value (default: 0.9)")
+    parser.add_argument('--temperature', type=float, default=0.7, help="Sampling temperature (default: 0.9)")
+    parser.add_argument('--do_sample', action='store_false', help="Use sampling for text generation (default: True)")
     
     # Device setup
     parser.add_argument('--device', type=str, default='cuda' if torch.cuda.is_available() else 'cpu', help="Device to run the model on (default: auto-detect)")
     
     # Benchmark flag
-    parser.add_argument('--benchmark', type=bool, default=False, help="Benchmark speed with original LLM")
+    parser.add_argument('--benchmark', action='store_true', help="Benchmark speed with original LLM")
     
     # Parse the arguments
     args = parser.parse_args()
     return args
 
-def generate_text(model, tokenizer, prompt, max_length=50, device='cuda'):
+def generate_text(model, tokenizer, prompt, max_length=50, device='cuda', top_k=0, temperature=0.7, top_p=0.9, do_sample=True):
     """
     Generates text from a prompt using the provided LLaMA model and measures tokens per second.
     """
@@ -39,14 +43,21 @@ def generate_text(model, tokenizer, prompt, max_length=50, device='cuda'):
     input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
     
     # Start timing the generation process
-    start_time = time.time()
+    start_time = time.perf_counter()
 
     # Generate text from the model
     with torch.no_grad():
-        output_ids = model.generate(input_ids, max_length=max_length, do_sample=True, top_k=50, top_p=0.95, temperature=0.9)
+        output_ids = model.generate(
+            input_ids, 
+            max_length=max_length, 
+            do_sample=do_sample, 
+            top_k=top_k, 
+            top_p=top_p,
+            temperature=temperature
+        )
 
     # End timing
-    end_time = time.time()
+    end_time = time.perf_counter()
 
     # Get the total number of tokens (input tokens + generated tokens)
     total_tokens = output_ids.size(1)
@@ -88,6 +99,7 @@ if __name__ == '__main__':
     # Parse arguments
     args = generate_text_args()
 
+    torch.manual_seed(42)
 
     # Load the tokenizer
     tokenizer = LlamaTokenizer.from_pretrained(args.model)
@@ -100,9 +112,17 @@ if __name__ == '__main__':
         "It all started with a simple mistake"
     ]
 
-
     # Clear GPU memory
     torch.cuda.empty_cache()
+
+    # Print the generation parameters
+    print(f"Model: {args.model}")
+    print(f"Device: {args.device}")
+    print(f"Max Length: {args.max_length}")
+    print(f"Top-k: {args.top_k}")
+    print(f"Temperature: {args.temperature}")
+    print(f"Do Sampling: {args.do_sample}")
+    print("========================================")
 
     # Benchmarking
     if args.benchmark:
@@ -115,7 +135,17 @@ if __name__ == '__main__':
         tps_values = []
 
         for prompt in prompts:
-            unquantized_text, unquantized_tps = generate_text(unquantized_model, tokenizer, prompt, max_length=args.max_length, device=args.device)
+            unquantized_text, unquantized_tps = generate_text(
+                unquantized_model, 
+                tokenizer, 
+                prompt, 
+                max_length=args.max_length, 
+                device=args.device, 
+                top_k=args.top_k, 
+                temperature=args.temperature, 
+                top_p=args.top_p,
+                do_sample=args.do_sample
+            )
             tps_values.append(unquantized_tps)
 
             print(f"Generated Text (Unquantized Model):\n{unquantized_text}")
@@ -139,7 +169,17 @@ if __name__ == '__main__':
 
         # Generate text using the quantized model
         for prompt in prompts:
-            quantized_text, quantized_tps = generate_text(quantized_model, tokenizer, prompt, max_length=args.max_length, device=args.device)
+            quantized_text, quantized_tps = generate_text(
+                quantized_model, 
+                tokenizer, 
+                prompt, 
+                max_length=args.max_length, 
+                device=args.device, 
+                top_k=args.top_k, 
+                temperature=args.temperature, 
+                top_p=args.top_p,
+                do_sample=args.do_sample
+            )
             tps_values.append(quantized_tps)
 
             print(f"Generated Text (Quantized Model):\n{quantized_text}")
