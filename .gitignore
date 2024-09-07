@@ -1,4 +1,4 @@
-BCQ_ACC_*
+*.pt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -189,3 +189,140 @@ sys     1m17.537s
 
 2. BCQ_ACC_Llama-3.1-8B-Instruct
 
+```
+ubuntu@150-136-66-218:~/llm-train-filesystem/ShiftAddLLM$ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 generate_text/generate_llama.py --model meta-llama/Meta-Llama-3.1-8B-Instruct --load BCQ_ACC_Llama-3.1-8B-Instruct --benchmark
+Model: meta-llama/Meta-Llama-3.1-8B-Instruct
+Device: cuda
+Max Length: 300
+Top-k: 0
+Temperature: 0.7
+Do Sampling: True
+========================================
+==== Benchmarking unquantized model ====
+Loading checkpoint shards: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:00<00:00, 17.26it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Generated Text (Unquantized Model):
+Once upon a time, in the land of music, there was a magical instrument called the "Soundwave". It was a beautiful, shimmering harp with strings that sang in harmony with the wind and the stars. The Soundwave was said to have the power to bring people together, to heal the sick, and to make the world a more harmonious place.
+One day, a young musician named Luna stumbled upon the Soundwave in a hidden glade deep in the forest. She had been searching for it her whole life, and when she finally found it, she felt a surge of excitement and joy.
+As soon as Luna touched the strings of the Soundwave, she felt a deep connection to the instrument. She began to play, and the music that flowed from her fingers was like nothing anyone had ever heard before. It was as if the Soundwave was singing through her, using her as a vessel to express its beauty and magic.
+As Luna played, the forest around her began to transform. The trees swayed to the rhythm, the flowers bloomed in time with the melody, and the creatures of the forest danced and sang along. The music was so powerful that it seemed to bring the very essence of the forest to life.
+Word of the Soundwave's magical music spread quickly, and soon people from all over the land came to hear Luna play. They would sit in the glade, mesmerized by the beauty and harmony of the music, and feel their hearts and
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Generated Text (Unquantized Model):
+In a galaxy far, far away, a brave young space pilot named Nova sets out to explore the cosmos and save the galaxy from an ancient evil. With her trusty spaceship, the Nova Star, and her loyal AI sidekick, Zeta, Nova embarks on a thrilling adventure that takes her to the farthest reaches of the galaxy.
+From the desolate wastelands of the Dark Nebula to the lush, vibrant jungles of the Orion Cluster, Nova and Zeta encounter strange and fantastical worlds, alien species, and hidden dangers at every turn. Along the way, they must navigate treacherous asteroid fields, hostile alien encounters, and the ever-present threat of the dark forces that seek to destroy the galaxy.
+As Nova and Zeta journey deeper into the unknown, they discover that the fate of the galaxy hangs in the balance. An ancient evil, known only as the "Devourer," threatens to consume all in its path, leaving nothing but destruction and despair in its wake. Nova and Zeta must use all their skills and cunning to defeat the Devourer and save the galaxy from annihilation.
+Will Nova and Zeta be able to overcome the odds and save the galaxy, or will the darkness consume them all? Join Nova on her epic adventure through the cosmos and discover the wonders and dangers that await her in the galaxy far, far away.
+In this thrilling space opera, Nova and Zeta face off against formidable foes, uncover hidden secrets, and discover
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Generated Text (Unquantized Model):
+The quick brown fox jumps over the lazy dog. This is a sentence that is commonly used as a demonstration of a typographical arrangement of keys on a standard English keyboard layout. It is often used to test the keyboard layout. This sentence is a pangram, a sentence that uses all the letters of the alphabet at least once. It is a classic example of a pangram and is widely known and used. The sentence is often used in typing drills and keyboard testing programs. It is a useful tool for testing the layout and functionality of a keyboard.
+The sentence is also often used in word games and puzzles, such as crosswords and word searches, because it uses all the letters of the alphabet. It is a challenging sentence to type quickly and accurately, because it requires the typist to use all the keys on the keyboard in a specific order. This makes it a useful tool for testing typing skills and improving typing speed and accuracy.
+The sentence has become a well-known phrase and is often referenced in popular culture. It has been used in a variety of contexts, including music, film, and literature. It is a phrase that is often used to represent the idea of a challenge or a test of skill.
+In addition to its use in typing drills and word games, the sentence has also been used in a variety of other contexts. It has been used in advertising and marketing, as a way to test the layout and functionality of a keyboard. It has also been used in educational settings, as
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Generated Text (Unquantized Model):
+In the middle of the night, she heard a sound that made her heart skip a beat. It was a faint scratching noise coming from the closet. She tried to brush it off as the house settling, but the noise persisted. She slowly got out of bed and approached the closet, her heart racing with anticipation. As she opened the door, a faint light flickered in the darkness. Suddenly, a figure emerged from the shadows, its eyes glowing with an otherworldly intensity. She froze, paralyzed with fear, as the figure began to speak in a low, raspy voice. "I've been waiting for you." The voice sent shivers down her spine, and she tried to scream, but her voice was trapped in her throat. The figure began to move closer, its presence filling the room with an unspeakable horror. She was trapped, unable to move or escape. The figure's eyes seemed to be drawing her in, pulling her into a dark and foreboding world. She felt herself being pulled towards it, helpless to resist. The last thing she remembered was the feeling of cold breath on her skin, and then everything went black. When she came to, she was lying on her bed, the room bathed in the warm light of dawn. It was just a dream, she told herself, trying to shake off the feeling of unease. But as she looked around the room, she noticed something strange. The closet door was open, and on the
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Generated Text (Unquantized Model):
+The world was on the brink of change, and the wind was blowing strong. The year was 1989, and the Berlin Wall, a physical and symbolic barrier between East and West, was about to come tumbling down. It was a time of great hope and uncertainty, as the people of Europe and the world watched with bated breath as the once-impenetrable wall was breached.
+It was against this backdrop that a small group of visionaries, led by the charismatic and visionary Dr. Roger Williams, began to imagine a new kind of university – one that would bring together students, faculty, and staff from all over the world to learn, grow, and thrive in a truly global community.
+In 1991, the University of the Nations (UofN) was born, with its first campus in Kona, Hawaii. From the outset, UofN was designed to be a place where people from diverse backgrounds and cultures could come together to learn, share, and grow in their faith, their character, and their callings.
+Today, UofN is a global network of campuses and training centers in over 180 countries, with thousands of students, faculty, and staff from all walks of life. From its humble beginnings, UofN has grown into a vibrant and diverse community of learners, leaders, and change-makers who are making a difference in their worlds and in the world at large.
+At UofN, we believe that education is not just about
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Generated Text (Unquantized Model):
+It all started with a simple mistake. A misplaced decimal point, a misread temperature reading, and a resulting error that would shake the very foundations of the scientific community. It was 2012, and the discovery of the Higgs boson, a fundamental particle predicted by the Standard Model of particle physics, was on the horizon.
+But what if the mistake wasn’t a mistake at all? What if it was a clever ruse, a deliberate attempt to mislead the scientific community and cover up a far more extraordinary truth?
+Enter the enigmatic physicist, Dr. Sophia Patel. A brilliant mind with a reputation for being one step ahead of the curve, Sophia has been quietly working on a top-secret project, one that could change the course of human understanding forever.
+As the world celebrates the discovery of the Higgs boson, Sophia knows that something is off. The data doesn’t add up, and she suspects that her colleagues may be hiding something from her. With the help of a young and ambitious journalist, Alex Chen, Sophia embarks on a perilous journey to uncover the truth.
+Their investigation takes them from the highest echelons of academia to the darkest corners of the scientific underworld, where the stakes are high and the players are ruthless. As they dig deeper, they begin to unravel a web of deceit and conspiracy that threatens to upend everything they thought they knew about the universe.
+The Higgs boson may be a discovery, but it’s just the tip of the
+Tokens per second (Unquantized Model): 30.37 tokens/second
+Tokens per second (Unquantized Model): 34.86 tokens/second
+Tokens per second (Unquantized Model): 35.27 tokens/second
+Tokens per second (Unquantized Model): 35.32 tokens/second
+Tokens per second (Unquantized Model): 35.10 tokens/second
+Tokens per second (Unquantized Model): 35.04 tokens/second
+Avg TPS (Unquantized Model): 34.33 tokens/second
+========================================
+
+===== Running quantized model =====
+Loading checkpoint shards: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:00<00:00, 13.56it/s]
+/home/ubuntu/llm-train-filesystem/ShiftAddLLM/generate_text/generate_llama.py:93: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  model.load_state_dict(torch.load(model_checkpoint))
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Generated Text (Quantized Model):
+Once upon a time, in the bustling streets of Tokyo, there existed a small, mysterious shop called "Moonlit." It was an unassuming place, tucked away in a quiet alley, with a faded sign above the door that read "Moonlit" in delicate, cursive script. The shop itself was an enigma, even to the locals, who would often whisper about the strange, otherworldly items they'd seen being carried out of its doors.
+Inside, Moonlit was a labyrinth of narrow corridors, dimly lit by candles and lanterns, with shelves upon shelves of curiosities and trinkets that seemed to shimmer and shine with an ethereal light. Some said the shop was run by a family of skilled spiritualists, who possessed an uncanny ability to sense the energies of the items they sold. Others whispered that the proprietor, a quiet, enigmatic woman with piercing green eyes, was a medium, who communed with the spirits of the dead to know the true nature of the artifacts.
+Those who ventured into Moonlit often reported feeling a sense of disorientation, as if the very fabric of reality had been tweaked, ever so slightly, by their presence in the shop. Others said it was a place of wonder, where the boundaries between worlds were blurred, and the impossible became possible.
+One day, a young woman named Akane wandered into Moonlit, searching for a gift for her dying grandmother. She had heard whispers of a rare, exquisite orch
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Generated Text (Quantized Model):
+In a galaxy far, far away, there lived a star named Sirius. This star, located in the constellation Canis Major, was known for its incredible brightness and was considered one of the brightest stars in the sky. However, as time went by, Sirius's brightness began to fade, and the star was eventually deemed a "dwarf" star, meaning it was much smaller than other stars in the galaxy.
+
+One day, a young astronomer named Sarah stumbled upon Sirius's fading brightness while studying the galaxy. Sarah was fascinated by Sirius's descent into darkness and decided to conduct a research on the star's evolution. Sarah spent countless hours studying Sirius's brightness, observing its changes over time, and eventually published a paper on the star's decline.
+
+However, as Sarah delved deeper into the galaxy, she began to notice that other stars, too, were fading at an incredible rate. She realized that the galaxy's collective brightness was actually decreasing, not just Sirius's. This realizati[0/547]ked a new line of research, which led Sarah to conclude that the galaxy was experiencing a galactic-wide "darkening" phenomenon. The study of this phenomenon, known as "galactic darkness," led Sarah to discover that the galaxy's collective brightness was actually being influenced by an external force.
+
+Sarah, being the young astronomer that she was, decided to investigate this phenomenon further. She spent countless hours analyzing the galaxy's collective brightness, observing its patterns, and trying to understand the external force that was causing
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Generated Text (Quantized Model):
+The quick brown fox jumps over the lazy dog.
+This sentence is often used to demonstrate a sentence that uses all 26 of the letters in the English alphabet. It is a bit of a trick, though, as "jumps" and "dog" don't actually use the letters "j", "x", or "q", which are not part of the standa
+rd 26 letters. However, if you remove the three letters that are not part of the standard 26 letters, you are left with "The quick brown fox". This sentence uses all 23 of the standard letters. A quick fox jumps over the lazy dog. A quick fox ju
+mps over the lazy dog. A quick fox jumps over the lazy dog. A quick fox jumps over the lazy dog. A quick fox jumps over the lazy dog. A quick fox jumps over the lazy dog. A quick fox jumps over the lazy dog. A quick fox jumps over the lazy dog.
+A quick fox jumps over the lazy dog. A quick fox jumps over the lazy dog. A quick fox jumps over the lazy dog. A quick fox jumps over the lazy dog. A quick fox jumps over the lazy dog. A quick fox jumps over the lazy dog. A quick fox jumps over
+the lazy dog. A quick fox jumps over the lazy dog. A quick fox jumps over the lazy dog. A quick fox jumps over the lazy dog. A quick fox jumps over the lazy dog. A quick fox jumps over the lazy dog. A
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Generated Text (Quantized Model):
+In the middle of the night, she heard a sound that made her jump. It was the sound of her daughter, Emily, stirring in her sleep. The 3-year-old girl was crying out in her sleep, but she was also having a nightmare, so the sound she was making w
+as not just a cry, but a loud, jarring sound that seemed to shake the very foundations of the house.
+As she listened to her daughter's cries, the mother felt a wave of fear wash over her. She knew that Emily was having a nightmare, and that she was scared. But she also knew that she had to get up and check on her daughter, because she was still
+ very young, and she might need her.
+The mother carefully got out of bed, not wanting to scare her daughter any more. She walked over to Emily's bed, where she was lying on her side, her eyes closed, her small face twisted up in a cry. The mother gently reached down and picked up h
+er daughter, cradling her in her arms, and trying to comfort her.
+"Shh, baby," she said, trying to calm her down. "It's okay. Mommy is here. You're safe."
+The mother held Emily close, trying to soothe her. She talked softly to her, trying to calm her down. She stroked her small face, trying to comfort her. But it was clear that Emily was not going to calm down. She was still crying
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Generated Text (Quantized Model):
+The world was on the brink of change. The Industrial Revolution had sparked innovation, efficiency, and progress. Cities were growing, and with them, the demand for housing was increasing. This created opportunities for entrepreneurs to build af
+fordable housing for workers, which they dubbed "workers' housing." This housing, built by entrepreneurs, was typically small, functional, and simple in design. It provided a place for workers to live, but the quality of life was limited. The wo
+rkers were not happy with their housing, as it lacked comfort and amenities. They yearned for a better life. This tension between the desire for workers' housing and the lack of amenities would continue throughout history. As society evolved, ho
+using became a major issue. The Industrial Revolution sparked innovation, but it also created social and economic challenges. The gap between workers' housing and the quality of life they desired widened. The need for housing that met workers' n
+eeds, with amenities, grew. This led to innovations in construction, materials, and technology, which, in turn, created new opportunities for entrepreneurs to build housing for workers. The workers' housing phenomenon continued to evolve through
+out history, with innovations in construction, materials, and technology creating new opportunities for entrepreneurs to build housing for workers. This tension between the desire for workers' housing and the lack of amenities continued througho
+ut history. The world was on the brink of change. The Industrial Revolution had sparked innovation, efficiency, and progress. Cities were growing, and with them, the demand for housing
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Generated Text (Quantized Model):
+It all started with a simple mistake. I had meant to buy a book on baking, but I ended up buying a book on how to cook. And not just any book on how to cook, but a book with a title that read "The Joy of Cooking".
+I had been looking for a cookbook for my mom, and I had decided to get her a book that would help her with her cooking. But, in my haste, I had ended up buying a book that was meant for a more experienced cook. The book had a title that read "Th
+e Joy of Cooking", and it was a big book, with lots of pages and a lot of information.
+I had taken it home with me, and I had been meaning to give it to my mom. But, as I was reading through it, I had realized that it was a book that was meant for a more experienced cook. The book had a lot of recipes, but it was a book that was m
+eant for a person who was already experienced in cooking.
+So, I decided to keep the book for myself, and to use it to learn more about cooking. And, as I was reading through it, I realized that it was a book that was written in a way that was easy to understand, even for a person who was new to cooking
+.
+The book had a lot of recipes, and it had a lot of information on different types of cooking, such as baking, roasting, and grilling. And,
+Tokens per second (Quantized Model): 35.14 tokens/second
+Tokens per second (Quantized Model): 35.02 tokens/second
+Tokens per second (Quantized Model): 35.36 tokens/second
+Tokens per second (Quantized Model): 35.69 tokens/second
+Tokens per second (Quantized Model): 35.69 tokens/second
+Tokens per second (Quantized Model): 35.26 tokens/second
+Avg TPS (Quantized Model): 35.36 tokens/second
+===================================
+```
+

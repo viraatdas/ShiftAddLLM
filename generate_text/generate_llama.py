@@ -22,7 +22,7 @@ def generate_text_args():
     parser.add_argument('--max_length', type=int, default=300, help="Maximum length of generated text")
     parser.add_argument('--top_k', type=int, default=0, help="Top-k sampling (default: 0)")
     parser.add_argument('--top_p', type=float, default=0.9, help="Top-p value (default: 0.9)")
-    parser.add_argument('--temperature', type=float, default=0.7, help="Sampling temperature (default: 0.9)")
+    parser.add_argument('--temperature', type=float, default=1.0, help="Sampling temperature (default: 0.9)")
     parser.add_argument('--do_sample', action='store_false', help="Use sampling for text generation (default: True)")
     
     # Device setup

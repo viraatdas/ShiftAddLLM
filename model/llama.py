@@ -54,7 +54,8 @@ def llama_sequential(model, dataloader, dev):
     # Move embedding layers to device
     model.model.embed_tokens = model.model.embed_tokens.to(dev)
     model.model.norm = model.model.norm.to(dev)
-    layers[0] = layers[0].to(dev)
+    for layer in layers:
+        layer.to(dev)  # Move all layers to the specified device
 
     # Prepare inputs and cache
     dtype = next(iter(model.parameters())).dtype
@@ -96,7 +97,8 @@ def llama_sequential(model, dataloader, dev):
 
     # Restore original model state
     layers[0] = layers[0].module
-    layers[0] = layers[0].cpu()
+    for layer in layers:
+        layer.cpu()  # Move layers back to CPU after processing
     model.model.embed_tokens = model.model.embed_tokens.cpu()
     model.model.norm = model.model.norm.cpu()
     torch.cuda.empty_cache()
@@ -361,7 +363,7 @@ if __name__ == '__main__':
     if args.load:
         model.load_state_dict(torch.load(args.load))
     model.eval()
-    
+
     print(f"Model: {args.model}")
     print(model)
 
