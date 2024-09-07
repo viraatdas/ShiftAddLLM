@@ -326,3 +326,79 @@ Avg TPS (Quantized Model): 35.36 tokens/second
 ===================================
 ```
 
+3. BCQ_LAT_Llama-3.1-8B-Instruct.pt
+
+```
+ubuntu@150-136-66-218:~/llm-train-filesystem/ShiftAddLLM$ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 generate_text/generate_llama.py --model meta-llama/Meta-Llama-3.1-8B-Instruct --load BCQ_LAT_Llama-3.1-8B-Instruct.pt --benchmark
+Model: meta-llama/Meta-Llama-3.1-8B-Instruct
+Device: cuda
+Max Length: 300
+Top-k: 0
+Temperature: 1.0
+Do Sampling: True
+========================================
+==== Benchmarking unquantized model ====
+Loading checkpoint shards: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:00<00:00, 17.38it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Generated Text (Unquantized Model):
+Once upon a time, in the land of music, there was a magical instrument called the Crystal Sonata. It was said to be the most beautiful and enchanting instrument in all the land, capable of playing the most mesmerizing melodies and harmonies that could entrance even the most skeptical of hearts.
+One day, a young musician named Lily heard the legend of the Crystal Sonata and became determined to find it. She traveled far and wide, searching for the instrument, meeting many people along the way who claimed to have seen or heard it. But no matter how hard she searched, Lily couldn’t seem to find it.
+Just when she was about to give up, Lily stumbled upon a small, mysterious shop tucked away in a quiet alley. The sign above the door read “Magical Instruments” and the windows were filled with an assortment of strange and exotic instruments. Lily’s heart skipped a beat as she pushed open the door and stepped inside.
+The shop was dimly lit, but Lily’s eyes quickly adjusted to the soft glow of the lanterns that hung from the ceiling. She wandered through the aisles, running her fingers over the intricate carvings on the instruments, feeling an energy emanating from each one. As she turned a corner, she caught sight of a pedestal in the center of the room, and on top of it, the Crystal Sonata.
+It was even more beautiful than she had imagined. The crystal keys sparkled like diamonds in the light, and the body of the
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Generated Text (Unquantized Model):
+In a galaxy far, far away, 3DCG will find a way. Robots have evolved, systems have grown, and now the technology is at a point where 3DCG animation can not only be made at home, but also be produced with professional-quality polish. In this tutorial, we’ll show you how to create an animated light cycle from the movie Tron Legacy.
+In a galaxy far, far away, 3DCG will find a way. Robots have evolved, systems have grown, and now the technology is at a point where 3DCG animation can not only be made at home, but also be produced with professional-quality polish. In this tutorial, we’ll show you how to create an animated light cycle from the movie Tron Legacy. First, you’ll need to have some experience in 3D modeling and animation, as well as some software like Blender or Autodesk Maya. We’ll be using Blender for this tutorial, as it’s free and open-source.
+Step 1: Set up your software and modeling space
+Create a new project in Blender by going to the File menu and selecting New. You should then set your render engine to Cycles, as it’s the most accurate and physically based renderer in Blender.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Generated Text (Quantized Model):
+The quick brown fox jumps over the lazy dog.
+There are 26 letters in the sentence "The quick brown fox jumps over the lazy dog."
+with numbers, and they can sometimes be unpredictable.
+This is a special keyboard character that means a shortcut key on the keyboard. Most keyboards have the following two keys.
+Use the shortcuts listed below to follow along.
+a = clear
+alt =  Alt key  (This key can also change some keys that are held down)
+shift = Shift key
+Windows = A keyboard key commonly referred to as the "Windows" key (This is NOT a keyboard key)
+Enter = The Enter key. This is also called the "Return" key.
+" {} | — These are called the "curly" or "backets" (Note: These keys do not act like any other keys on the keyboard. The {} are always inserted and can be erased by following a described system.)
+" [, ] { } = The same < > * *<>%reset insert nothing}
+        " {<}}.reset"*= ()* -= The Equals key on the keyboard acts like the modulus operator (like the % in languages like Mathematica). To see the special use of the modulus operator goto Mathematica website The Modulus key on the keyboard acts like the modulus operator (like the % in languages like Mathematica). Going to Mathematica website
+
+The modulus operator does nothing when pressed but it does insert a ^ well by other keys or characters
+This web
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Generated Text (Quantized Model):
+In the middle of the night, she heard a sound - something metallic scraping against the kitchen counter. As she turned to face the noise, a face appeared - inches from hers.
+A native of the Philippines, Angela Sy Cemerong, age 22, had been working in New York for three months when the incident happened. 'It was around 2 or 3 in the morning. I was about to go to sleep,' she recalls. 'I felt something touching the counter. At first, I didn't think anything of it. But then, I realized that I had heard a rustling sound, and I got a little scared. I figured that someone had just pushed something across the counter by accident. But then I saw the thing's face staring back at me. That's when I screamed. I screamed so loud that I woke up my roommate. I told her what happened, and she asked if I was okay, because I was shaken. My room mate told me not to worry, that it was probably just a one or two bad dreams she was having that night. She said that I should be grateful, that I had gotten a clean slate in my life, that things were moving up for me. I thanked her. That was five months ago. There's no indication that anything abnormal has happened since, and I do not sense any doom oring of substance.
+Yet, Angela, thought happen after she turned off the lamp and waited for what would come next -
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Generated Text (Quantized Model):
+The world was on the brink of change, with many people thinking it was impossible for world peace to come to fruition. However, in 1982, at a time when war was common and fear was the commonality, Helena Bonham Carter, an actress in the British film "National Velvet," went to Uganda to help three orphaned elephants. This act of kindness evolved into the helping of thousands, while the world was evolving towards peaceful existence. Carol Stangel asked: 'What was so powerful about the elephants?  This global act of kindness helped end war in many places of the world. It is of such significant implications, that... if any human part of Bonham-Carter arrived in Uganda, he or she would have been arrested. The scale of global peace was realized, right on that flight from New York, USA, with Ugandan use of 'Bindi" which Carol utilized in Kenya to show Uganda-US relation locale visitors arriving Uganda Uganda disbalance lasted between Kenya Uganda unde Ugnda Kenya Uganda USA 509500 Tut hunters hunter JHUrev Uganda Kenya UA documented surveyed hunters Kenya Kenya Uganda Uganda Kenya Kenya ug Uganda Uganda Kenya camp Kenya suppl ug Uganda hunter vill Ken Uganda man Kenya huntmen UA Kenya her Carm Uganda hunted K Ug Kenya tug Ashington Kenya hunt Ug Uganda hunt Ug Uganda hunt Uganda Kenya hunt ug Ug Uganda hunt son ug Uganda Uganda SA capt Kenya scare Uganda Ltd Uk http Ug Uganda Local Eszcze Agricultural hunt ugld Uganda Uganda reign savvy hunt ug Italy Rwanda ug
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Generated Text (Quantized Model):
+It all started with a simple mistake - or so I thought. I had been meaning to fix a showerhead, which had somehow come loose and was spraying water everywhere. (Why does this always happen at the worst possible moment?)
+I called in a handyman, who shortly after arriving started explaining why he thought he should get a raise. Why, he asked, did management pay him to fix a showerhead? Which led to a long conversation (in excrucab).
+When you encounter language as pretty as Macana Airport's menu (ingredients)"
+walk silently behind spectators packed At Large Variety airport).
+OnlywhenS how engineer ply plates groceries waters oatmeal+dians important personal virtue+
+person tomato discussion *
+Tsutton Darwin trim Pel Fish0503061806659969959969959pal9892939969969959969956969969959969959959969959959969956p6159956956959969956969959969956rut995695999996996995996995695995696995695995696995696995695995696995695995996995695995696995696995696995696995696995696995695995696995696995695995695995696995695696995695996995696995696995696995695995695996995696995696995696995695995696995696995696995696995696995696995696995995696995695996995695995696995696995696995696995696995696
+Tokens per second (Quantized Model): 35.31 tokens/second
+Tokens per second (Quantized Model): 35.38 tokens/second
+Tokens per second (Quantized Model): 35.77 tokens/second
+Tokens per second (Quantized Model): 36.26 tokens/second
+Tokens per second (Quantized Model): 35.81 tokens/second
+Tokens per second (Quantized Model): 35.61 tokens/second
+Avg TPS (Quantized Model): 35.69 tokens/second
+```
