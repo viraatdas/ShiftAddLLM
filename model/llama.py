@@ -361,6 +361,8 @@ if __name__ == '__main__':
     if args.load:
         model.load_state_dict(torch.load(args.load))
     model.eval()
+    
+    print(f"Model: {args.model}")
     print(model)
 
     # Load quantization weights if specified

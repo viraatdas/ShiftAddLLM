@@ -9,6 +9,18 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 model/llama.py meta-llama/Llama-2-1
 CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 generate_text/generate_llama.py --model meta-llama/Llama-2-13b-hf --load BCQ_ACC_13b_HF --benchmark
 ```
 
+3. Streamlit
+On local:
+```
+ssh -L 8501:localhost:8501 ubuntu@150.136.66.218
+```
+
+
+On remote:
+```
+streamlit run chat/chat_app.py --server.port 8501 --server.address 0.0.0.0
+```
+
 
 
 ## Results
