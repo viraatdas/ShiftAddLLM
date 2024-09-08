@@ -402,3 +402,35 @@ Tokens per second (Quantized Model): 35.81 tokens/second
 Tokens per second (Quantized Model): 35.61 tokens/second
 Avg TPS (Quantized Model): 35.69 tokens/second
 ```
+
+
+3. BCQ_LAT_Llama-3.1-8B-Instruct.pt
+
+```
+Tokens Per Second (TPS) Comparison:
+Prompt                                   | Unquantized TPS | Quantized TPS
+--------------------------------------------------------------------------------
+1   | 32.53             | 36.78          
+2   | 37.54             | 37.17          
+3   | 38.02             | 37.40          
+4   | 38.10             | 37.74          
+5   | 37.83             | 37.22          
+6   | 37.66             | 37.15          
+--------------------------------------------------------------------------------
+Average TPS:                        | 36.95             | 37.24          
+Generated Text Comparison:
+Prompt                                   | Unquantized Text                                   | Quantized Text
+----------------------------------------------------------------------------------------------------------------
+1   | Once upon a time, in the land of music, there was  | Once upon a time, in the bustling streets of Dhaka
+2   | In a galaxy far, far away, 3DCG will find a way. R | In a galaxy far, far away, there lived a star name
+3   | The quick brown fox jumps over the lazy dog. For f | The quick brown fox jumps over the lazy dog.
+There
+4   | In the middle of the night, she heard a sound that | In the middle of the night, she heard a sound - so
+5   | The world was on the brink of change, and a myster | The world was on the brink of change, with many pe
+6   | It all started with a simple mistake. A misplaced  | It all started with a simple mistake - or so I tho
+Perplexity (PPL) Comparison:
+Dataset                                   | Unquantized PPL | Quantized PPL
+--------------------------------------------------------------------------------
+wikitext2                                | 7.21              | 11.18          
+ptb                                      | 12.33             | 19.13 
+```
