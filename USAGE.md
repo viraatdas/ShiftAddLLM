@@ -1,8 +1,10 @@
 ## Usage
 1. Quantize model
 ```
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 model/llama.py meta-llama/Llama-2-13b-hf --wbits 3 --groupsize 128 --acc --bcq --bcq_round 50 --load BCQ_ACC_Llama-2-13b-hf # bcq_round 20 works too, bigger - slower - maybe better
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 model/llama.py meta-llama/Llama-2-13b-hf --wbits 3 --groupsize 128 --acc --bcq --bcq_round 50 --save BCQ_ACC_Llama-2-13b-hf.pt # bcq_round 20 works too, bigger - slower - maybe better
 ```
+
+
 
 2. Generate
 ```

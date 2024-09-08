@@ -48,43 +48,33 @@ def generate_text_args():
     args = parser.parse_args()
     return args
 
-def generate_text(model, tokenizer, prompt, max_length=50, device='cuda', top_k=0, temperature=0.7, top_p=0.9, do_sample=True):
+def generate_text(model, tokenizer, prompt, max_length=50, device='cuda', top_k=0, temperature=0.7, top_p=0.9, do_sample=True, num_runs=10):
     """
-    Generates text from a prompt using the provided LLaMA model and measures tokens per second.
+    Measures tokens per second for processing input through the model.
     """
     # Tokenize the input prompt
-    input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
+    inputs = tokenizer(prompt, return_tensors="pt").to(device)
+    input_ids = inputs["input_ids"]
     
-    # Start timing the generation process
-    start_time = time.perf_counter()
-
-    # Generate text from the model
+    # Warm-up run
     with torch.no_grad():
-        output_ids = model.generate(
-            input_ids, 
-            max_length=max_length, 
-            do_sample=do_sample, 
-            top_k=top_k, 
-            top_p=top_p,
-            temperature=temperature
-        )
+        model.generate(input_ids, max_new_tokens=1, do_sample=do_sample, top_k=top_k, top_p=top_p, temperature=temperature)
+    
+    # Multiple timed runs
+    total_time = 0
+    for _ in range(num_runs):
+        start_time = time.perf_counter()
+        with torch.no_grad():
+            model.generate(input_ids, max_new_tokens=1, do_sample=do_sample, top_k=top_k, top_p=top_p, temperature=temperature)
+        end_time = time.perf_counter()
+        total_time += (end_time - start_time)
+    
+    # Calculate average time and TPS
+    avg_time = total_time / num_runs
+    num_tokens = input_ids.numel()
+    tps = num_tokens / avg_time
 
-    # End timing
-    end_time = time.perf_counter()
-
-    # Get the total number of tokens (input tokens + generated tokens)
-    total_tokens = output_ids.size(1)
-
-    # Calculate the time taken
-    time_taken = end_time - start_time
-
-    # Calculate tokens per second
-    tokens_per_second = total_tokens / time_taken
-
-    # Decode the generated text
-    generated_text = tokenizer.decode(output_ids[0], skip_special_tokens=True)
-    return generated_text, tokens_per_second
-
+    return tps
 def print_tps_values(unquantized_tps, quantized_tps):
     """
     Print the Tokens Per Second (TPS) values for unquantized and quantized models.
@@ -279,12 +269,11 @@ def get_llama(model, model_checkpoint=None):
     model.eval()
     return model
 
-def generate_tps_and_text(tokenizer, model):
+def generate_tps_and_text(tokenizer, model, prompts, args):
     tps_values = []
-    text_values = []
 
-    for prompt in prompts:
-        text, tps = generate_text(
+    for prompt in prompts[:1]:
+        tps = generate_text(
             model, 
             tokenizer, 
             prompt, 
@@ -296,9 +285,8 @@ def generate_tps_and_text(tokenizer, model):
             do_sample=args.do_sample
         )
         tps_values.append(tps)
-        text_values.append(text)
     
-    return tps_values, text_values
+    return tps_values
 
 
 
@@ -352,9 +340,5 @@ if __name__ == '__main__':
         print("Quantized model not loaded. No checkpoint specified.")
 
     print_tps_values(unquantized_tps_values, quantized_tps_values)
-    print_text_values(unquantized_text_values, quantized_text_values)
+    # print_text_values(unquantized_text_values, quantized_text_values)
     print_ppl_values(uquantized_ppl_values, quantized_ppl_values)
-
-
-
-
