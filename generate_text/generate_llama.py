@@ -6,8 +6,10 @@ sys.path.append('..')
 import torch
 import torch.nn as nn
 import time
+import os
 from transformers import AutoTokenizer, LlamaForCausalLM
 from datautils import get_loaders
+import objsize
 
 
 prompts = [
@@ -75,6 +77,8 @@ def generate_text(model, tokenizer, prompt, max_length=50, device='cuda', top_k=
     tps = num_tokens / avg_time
 
     return tps
+
+
 def print_tps_values(unquantized_tps, quantized_tps):
     """
     Print the Tokens Per Second (TPS) values for unquantized and quantized models.
@@ -84,6 +88,7 @@ def print_tps_values(unquantized_tps, quantized_tps):
         quantized_tps: List of TPS values for the quantized model.
     """
     assert len(unquantized_tps) == len(unquantized_tps), "length of unquantized tps and quantized tps aren't the same"
+    print()
     print("Tokens Per Second (TPS) Comparison:")
     print("Prompt                                   | Unquantized TPS | Quantized TPS")
     print("--------------------------------------------------------------------------------")
@@ -106,6 +111,7 @@ def print_ppl_values(unquantized_ppl_values, quantized_ppl_values):
         unquantized_ppl: List of PPL values for the unquantized model.
         quantized_ppl: List of PPL values for the quantized model.
     """
+    print()
     print("Perplexity (PPL) Comparison:")
     print("Dataset                                   | Unquantized PPL | Quantized PPL")
     print("--------------------------------------------------------------------------------")
@@ -120,11 +126,47 @@ def print_text_values(unquantized_texts, quantized_texts):
         unquantized_texts: List of generated texts for the unquantized model.
         quantized_texts: List of generated texts for the quantized model.
     """
+    print()
     print("Generated Text Comparison:")
     print("Prompt                                   | Unquantized Text                                   | Quantized Text")
     print("----------------------------------------------------------------------------------------------------------------")
     for i in range(len(unquantized_texts)):
         print(f"{i + 1:<3} | {unquantized_texts[i][:50]:<50} | {quantized_texts[i][:50]:<50}")  # Print first 50 characters
+
+
+def print_model_size(unquantized_model_size, quantized_model_size):
+    """
+    Print the model size for unquantized and quantized models.
+
+    Args:
+        unquantized_model_size: Size of the unquantized model in MB.
+        quantized_model_size: Size of the quantized model in MB.
+    """
+    print()
+    print("Model Size Comparison:")
+    print("Model                                   | Size (MB)")
+    print("---------------------------------------------------")
+    print(f"Unquantized Model                      | {unquantized_model_size}")
+    print(f"Quantized Model                        | {quantized_model_size}")
+
+
+def print_gpu_memory(unquantized_gpu_memory, quantized_gpu_memory):
+    """
+    Print the GPU memory usage for unquantized and quantized models.
+
+    Args:
+        unquantized_gpu_memory: GPU memory usage for the unquantized model in MB.
+        quantized_gpu_memory: GPU memory usage for the quantized model in MB.
+    """
+    print()
+    print("GPU Memory Usage Comparison:")
+    print("Model                                   | Memory Usage (MB)")
+    print("---------------------------------------------------")
+    print(f"Unquantized Model                      | {unquantized_gpu_memory:.2f}" if isinstance(unquantized_gpu_memory, float) else "Unquantized Model                      | N/A")
+    print(f"Quantized Model                        | {quantized_gpu_memory:.2f}" if isinstance(quantized_gpu_memory, float) else "Quantized Model                        | N/A")
+    
+
+
 
 @torch.no_grad()
 def calculate_ppl(model, testenc, device):
@@ -269,7 +311,7 @@ def get_llama(model, model_checkpoint=None):
     model.eval()
     return model
 
-def generate_tps_and_text(tokenizer, model, prompts, args):
+def generate_tps_and_text(tokenizer, model, args):
     tps_values = []
 
     for prompt in prompts[:1]:
@@ -289,6 +331,111 @@ def generate_tps_and_text(tokenizer, model, prompts, args):
     return tps_values
 
 
+
+def measure_gpu_memory_usage(model, tokenizer, prompt, device='cuda'):
+    """
+    Measure GPU memory usage.
+    """
+    torch.cuda.reset_peak_memory_stats(device)  # Reset before benchmarking
+    print(f"gpu used {torch.cuda.max_memory_allocated(device=None)} memory")
+
+    model.to(device)
+    
+    inputs = tokenizer(prompt, return_tensors="pt")
+    inputs = inputs.to(device)
+    input_ids = inputs["input_ids"]
+
+    # Perform inference
+    with torch.no_grad():
+        model.generate(input_ids, max_new_tokens=50)
+
+    peak_memory = torch.cuda.max_memory_allocated(device) / (1024 ** 2)  # Convert to MB
+    print(f"gpu used {torch.cuda.max_memory_allocated(device=None)} memory")
+    return peak_memory
+
+
+def measure_model_size(model):
+    """
+    Measure the size of the model in memory using objsize.
+
+    Args:
+        model: The model object to measure.
+
+    Returns:
+        Size of the model in MB.
+    """
+    model_size_bytes = objsize.get_deep_size(model)  # Get the size in bytes
+    model_size_mb = model_size_bytes / (1024 ** 2)  # Convert to MB
+    return model_size_mb
+
+
+def benchmark_model(model, tokenizer, model_path, device='cuda'):
+    """
+    Benchmark the model for latency, GPU/CPU memory usage, and model size.
+    """
+
+    prompt = prompts[0]
+    # GPU Memory Usage
+    if torch.cuda.is_available():
+        gpu_memory = measure_gpu_memory_usage(model, tokenizer, prompt)
+    else:
+        gpu_memory = "N/A"
+
+    # Model Size
+    model_size_mb = measure_model_size(model)
+
+    print(f"GPU Memory Usage: {gpu_memory:.2f} MB")
+    print(f"Model Size: {model_size_mb:.2f} MB")
+
+    return gpu_memory, model_size_mb
+
+
+def load_model_weights(model, selected_layers=None):
+    """
+    Load specific model weights into the given model.
+
+    Args:
+        model: The model instance to load weights into.
+        selected_layers (list, optional): List of layer names to load. If None, all weights are loaded.
+
+    Returns:
+        dict: A dictionary of loaded weights.
+    """
+    # Load all weights from the checkpoint
+    model_checkpoint = model.state_dict()  # Get the current state dict of the model
+
+    if selected_layers is not None:
+        # Filter weights to only include selected layers
+        filtered_weights = {key: model_checkpoint[key] for key in selected_layers if key in model_checkpoint}
+        model.load_state_dict(filtered_weights, strict=False)  # Load only the filtered weights
+        return filtered_weights
+
+    model.load_state_dict(model_checkpoint)  # Load all weights if no specific layers are requested
+    return model_checkpoint  # Return all weights if no specific layers are requested
+
+def check_weights_differences(weights1, weights2, selected_layers):
+    """
+    Check if the weights of selected layers are different or the same.
+
+    Args:
+        weights1 (dict): First model weights.
+        weights2 (dict): Second model weights.
+        selected_layers (list): List of layer names to check.
+
+    Returns:
+        dict: A dictionary indicating whether weights are the same or different for selected layers.
+    """
+    differences = {}
+    
+    for key in selected_layers:
+        if key in weights1 and key in weights2:
+            # Check if weights are equal
+            are_equal = torch.equal(weights1[key], weights2[key])
+            differences[key] = are_equal
+        else:
+            differences[key] = None  # Key not found in one of the models
+
+    return differences
 
 if __name__ == '__main__':
     # Parse arguments
@@ -311,6 +458,14 @@ if __name__ == '__main__':
     print(f"Do Sampling: {args.do_sample}")
     print("========================================")
 
+    selected_layers = [
+        'model.embed_tokens.weight',  # Example: embedding layer
+        'model.layers.0.self_attn.q_proj.weight',  # Example: first layer's query projection
+        'model.layers.0.self_attn.k_proj.weight',  # Example: first layer's key projection
+        'model.layers.0.self_attn.v_proj.weight',  # Example: first layer's value projection
+        'model.lm_head.weight'  # Example: output layer
+    ]
+
     # Benchmarking
     if args.benchmark:
         print("==== Benchmarking unquantized model ====")
@@ -318,9 +473,19 @@ if __name__ == '__main__':
         unquantized_model = get_llama(args.model)
         unquantized_model = unquantized_model.to(args.device)
 
+        # Get the Hugging Face cache directory for the unquantized model
+        hf_cache_dir = os.path.expanduser('~/.cache/huggingface/hub/')
+        unquantized_model_path = os.path.join(hf_cache_dir, "models--meta-llama--Meta-Llama-3.1-8B-Instruct")
+
+        unquantized_gpu_memory, unquantized_model_size = benchmark_model(unquantized_model, tokenizer, unquantized_model_path, device=args.device)
+
+
         # Generate text and measure TPS for unquantized model
-        unquantized_tps_values, unquantized_text_values = generate_tps_and_text(tokenizer, unquantized_model)
+        unquantized_tps_values = generate_tps_and_text(tokenizer, unquantized_model, args)
         uquantized_ppl_values = generate_ppl(args.model, unquantized_model, args.device)
+
+        unquantized_weights = load_model_weights(unquantized_model, selected_layers=selected_layers)
+
 
         del unquantized_model
         torch.cuda.empty_cache()
@@ -331,8 +496,13 @@ if __name__ == '__main__':
         quantized_model = get_llama(args.model, args.load)
         quantized_model = quantized_model.to(args.device)
 
-        quantized_tps_values, quantized_text_values = generate_tps_and_text(tokenizer, quantized_model)
+        quantized_gpu_memory, quantized_model_size = benchmark_model(quantized_model, tokenizer, args.load, device=args.device)
+
+        quantized_tps_values = generate_tps_and_text(tokenizer, quantized_model, args)
         quantized_ppl_values = generate_ppl(args.model, quantized_model, args.device)
+
+
+        quantized_weights = load_model_weights(quantized_model, selected_layers=selected_layers)
 
         del quantized_model
         torch.cuda.empty_cache()
@@ -342,3 +512,17 @@ if __name__ == '__main__':
     print_tps_values(unquantized_tps_values, quantized_tps_values)
     # print_text_values(unquantized_text_values, quantized_text_values)
     print_ppl_values(uquantized_ppl_values, quantized_ppl_values)
+    print_gpu_memory(unquantized_gpu_memory, quantized_gpu_memory)
+    print_model_size(unquantized_model_size, quantized_model_size)
+
+    # this is just a sanity check to make sure the weights of the model are differen
+    weight_differences = check_weights_differences(unquantized_weights, quantized_weights, selected_layers)
+
+    # Print results
+    for key, is_equal in weight_differences.items():
+        if is_equal is None:
+            print(f"Layer: {key} - Not found in one of the models.")
+        elif is_equal:
+            print(f"Layer: {key} - Weights are the same.")
+        else:
+            print(f"Layer: {key} - Weights are different.")
