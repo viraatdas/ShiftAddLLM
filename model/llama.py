@@ -51,11 +51,18 @@ def llama_sequential(model, dataloader, dev):
     model.config.use_cache = False
     layers = model.model.layers
 
+    model = model.to(dev)
+
     # Move embedding layers to device
     model.model.embed_tokens = model.model.embed_tokens.to(dev)
     model.model.norm = model.model.norm.to(dev)
     for layer in layers:
         layer.to(dev)  # Move all layers to the specified device
+
+    
+
+    for module in model.modules():
+        module.to(dev)
 
     # Prepare inputs and cache
     dtype = next(iter(model.parameters())).dtype
@@ -71,7 +78,7 @@ def llama_sequential(model, dataloader, dev):
             self.module = module
 
         def forward(self, inp, **kwargs):
-            inps[cache['i']] = inp
+            inps[cache['i']] = inp.to(dev)
             cache['i'] += 1
 
             # Capture attention mask and position ids
@@ -90,8 +97,11 @@ def llama_sequential(model, dataloader, dev):
     
     # Loop through the dataloader to gather input data
     for batch in dataloader:
+        input_ids = batch[0].to(dev)  # Assuming batch[0] contains input_ids
+        attention_mask = batch[1].to(dev)  # Assuming batch[1] contains attention_mask if applicable
+
         try:
-            model(batch[0].to(dev))  # Feed input to model
+            model(input_ids)  # Feed input to model
         except ValueError:
             pass  # Catcher terminates here on purpose
 
