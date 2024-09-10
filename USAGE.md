@@ -6,7 +6,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 model/llama.py meta-llama/Llama-2-1
 
 
 
-2. Generate
+2. Benchmark model 
 ```
 CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 generate_text/generate_llama.py --model meta-llama/Meta-Llama-3.1-8B-Instruct --load BCQ_LAT_Llama-3.1-8B-Instruct.pt --benchmark
 ```
@@ -328,7 +328,7 @@ Avg TPS (Quantized Model): 35.36 tokens/second
 ===================================
 ```
 
-3. BCQ_LAT_Llama-3.1-8B-Instruct.pt
+. BCQ_LAT_Llama-3.1-8B-Instruct.pt
 
 ```
 ubuntu@150-136-66-218:~/llm-train-filesystem/ShiftAddLLM$ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 generate_text/generate_llama.py --model meta-llama/Meta-Llama-3.1-8B-Instruct --load BCQ_LAT_Llama-3.1-8B-Instruct.pt --benchmark
@@ -435,4 +435,34 @@ Dataset                                   | Unquantized PPL | Quantized PPL
 --------------------------------------------------------------------------------
 wikitext2                                | 7.21              | 11.18          
 ptb                                      | 12.33             | 19.13 
+```
+
+4. LAT_wbits-3_groupsize-128_Llama-3.1-8B-Instruct.pt
+
+```
+
+Tokens Per Second (TPS) Comparison:
+Prompt                                   | Unquantized TPS | Quantized TPS
+--------------------------------------------------------------------------------
+1   | 171.37            | 169.58         
+--------------------------------------------------------------------------------
+Average TPS:                        | 171.37            | 169.58         
+
+Perplexity (PPL) Comparison:
+Dataset                                   | Unquantized PPL | Quantized PPL
+--------------------------------------------------------------------------------
+wikitext2                                | 7.21              | 7.55           
+ptb                                      | 12.33             | 13.30          
+
+GPU Memory Usage Comparison:
+Model                                   | Memory Usage (MB)
+---------------------------------------------------
+Unquantized Model                      | 15337.33
+Quantized Model                        | 15337.33
+
+Model Size Comparison:
+Model                                   | Size (MB)
+---------------------------------------------------
+Unquantized Model                      | 1.1704626083374023
+Quantized Model                        | 1.1704626083374023
 ```
