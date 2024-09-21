@@ -23,6 +23,8 @@ On remote:
 streamlit run chat/chat_app.py --server.port 8501 --server.address 0.0.0.0
 ```
 
+4. Inference
+
 
 
 ## Results
