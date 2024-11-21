@@ -135,6 +135,12 @@ def parse_args():
 			'--load_temp_storage', type=str, default=None,
 			help='load from temporary quantized weight with low bit under this dir.'
 	)
+	parser.add_argument(
+			'--infer_kernel', action='store_true',default=False,
+			help='whether to inference with cuda kernel.'
+	)
+
+
 	# mix precision
 	parser.add_argument(
 		'--quant_config', type=str, default=None,
